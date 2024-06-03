@@ -19,7 +19,7 @@ export const register = createAsyncThunk('auth/register',
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            return thunkAPI.rejectWithValue(error.response.data.message);
         }
     }
 );
@@ -33,7 +33,7 @@ export const logIn = createAsyncThunk(
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
+            return thunkAPI.rejectWithValue(error.response.data.message);
         }
     }
 );
@@ -60,7 +60,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
         const response = await axios.get('/users/me');
         return response.data;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
+        return thunkAPI.rejectWithValue(error.response.data.message);
     }
 }
 );
