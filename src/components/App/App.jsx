@@ -1,4 +1,5 @@
 import './App.css'
+import { Toaster } from 'react-hot-toast';
 import { useEffect, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,6 +29,7 @@ function App() {
     <b>Refreshing user...</b>
   ) : (
     <Layout>
+      <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route

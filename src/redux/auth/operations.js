@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -19,7 +20,8 @@ export const register = createAsyncThunk('auth/register',
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message);
+            return thunkAPI.rejectWithValue(error.response.data.message) &&
+                toast.error('Something went wrong :( Try again later.');
         }
     }
 );
@@ -33,7 +35,8 @@ export const logIn = createAsyncThunk(
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message);
+            return thunkAPI.rejectWithValue(error.response.data.message) &&
+                toast.error('Something went wrong :( Try again later.');
         }
     }
 );
@@ -57,10 +60,11 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
 
     try {
         setAuthHeader(persistedToken);
-        const response = await axios.get('/users/me');
+        const response = await axios.get('/users/current');
         return response.data;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data.message);
+        return thunkAPI.rejectWithValue(error.message) &&
+            toast.error('Something went wrong :( Try to reload your page.');
     }
 }
 );

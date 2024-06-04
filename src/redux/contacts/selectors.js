@@ -7,10 +7,12 @@ export const selectIsLoading = state => state.contacts.isLoading;
 export const selectError = state => state.contacts.error;
 
 export const selectFilteredContacts = createSelector(
-    [selectContacts, selectNameFilter], (contacts, nameFilter) => {
+    [selectContacts, selectNameFilter], (contacts, filter) => {
         return contacts.filter(contact =>
-            typeof contact.name === 'string' &&
-            contact.name.toLowerCase().includes(nameFilter.toLowerCase())
+            (typeof contact.name === 'string' &&
+                contact.name.toLowerCase().includes(filter.toLowerCase())) ||
+            (typeof contact.number === "string" &&
+                contact.number.includes(filter))
         );
     }
 );
