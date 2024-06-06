@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-// import css from './RegisterForm.module.css';
+import css from './RegistrationForm.module.css';
 
 export default function RegistrationForm() {
     const dispatch = useDispatch();
@@ -29,23 +29,23 @@ export default function RegistrationForm() {
             initialValues={initialValues}
             validationSchema={Validator}
             onSubmit={handleSubmit}>
-            <Form>
-                <label>
+            <Form className={css.form}>
+                <label className={css.label}>
                     Username
-                    <Field type="text" name="name" />
-                    <ErrorMessage name="name" component="div" />
+                    <Field className={css.input} type="text" name="name" />
+                    <ErrorMessage className={css.error} name="name" component="div" />
                 </label>
-                <label>
+                <label className={css.label}>
                     Email
-                    <Field type="email" name="email" />
-                    <ErrorMessage name="email" component="div" />
+                    <Field className={css.input} type="email" name="email" />
+                    <ErrorMessage className={css.error} name="email" component="div" />
                 </label>
-                <label>
+                <label className={css.label}>
                     Password
-                    <Field type="password" name="password" />
-                    <ErrorMessage name="password" component="div" />
+                    <Field className={css.input} type="password" name="password" />
+                    <ErrorMessage className={css.error} name="password" component="div" />
                 </label>
-                <button type="submit">Register</button>
+                <button className={css.btn} type="submit">Register</button>
             </Form>
         </Formik>
     );

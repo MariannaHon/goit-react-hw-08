@@ -3,14 +3,15 @@
 .list {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    margin: 10px auto;
-    gap: 5px;
+    width: 350px;
+    align-items: center;
+    gap: 15px;
 }
 
 .item {
-    width: 400px;
+    width: 350px;
     padding: 20px;
-    border: 1px solid #000;
+    border: 2px solid #000;
     border-radius: 6px;
+    background-color: #fff;
 }

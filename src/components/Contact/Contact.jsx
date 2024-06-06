@@ -7,6 +7,10 @@ import { useDispatch } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations.js";
 import css from './Contact.module.css'
 
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 const Contact = ({ contact: { id, name, number } }) => {
 
     const dispatch = useDispatch();
@@ -46,8 +50,18 @@ const Contact = ({ contact: { id, name, number } }) => {
                 <p><IoPersonSharp className={css.icon} />{name}</p>
                 <p><FaPhone className={css.icon} />{number}</p>
             </div>
-            <button onClick={openModalEdit}>Edit</button>
-            <button className={css.btn} onClick={() => openModal({ id, name, number })}>Delete</button>
+            <IconButton edge="end" aria-label="edit" onClick={openModalEdit}>
+                <EditIcon sx={{
+                    width: 35,
+                    color: 'black',
+                }} />
+            </IconButton>
+            <IconButton edge="end" aria-label="delete" onClick={() => openModal({ id, name, number })}>
+                <DeleteIcon sx={{
+                    width: 35,
+                    color: 'black',
+                }} />
+            </IconButton>
             {modalIsOpen && (
                 <ToDelete
                     isOpen={modalIsOpen}

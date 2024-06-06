@@ -1,4 +1,3 @@
-import './App.css'
 import { Toaster } from 'react-hot-toast';
 import { useEffect, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";

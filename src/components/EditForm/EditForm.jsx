@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { patchContact } from "../../redux/contacts/operations";
+import css from './EditForm.module.css'
 
 
 export default function EditForm({ initialValues, onRequestClose }) {
@@ -15,9 +16,8 @@ export default function EditForm({ initialValues, onRequestClose }) {
     })
 
     const handleSubmit = (values) => {
-        dispatch(patchContact(initialValues.id, values));
+        dispatch(patchContact(values));
         onRequestClose();
-        console.log(initialValues.id, values)
     };
 
     return (
@@ -25,20 +25,20 @@ export default function EditForm({ initialValues, onRequestClose }) {
             initialValues={initialValues}
             validationSchema={Validator}
             onSubmit={handleSubmit}>
-            <Form>
+            <Form className={css.form}>
                 <div>
-                    <label htmlFor="name" >Name</label>
-                    <Field type="text" name="name"></Field>
+                    <label className={css.label} htmlFor="name" >Name</label>
+                    <Field className={css.field} type="text" name="name"></Field>
 
-                    <ErrorMessage name="name" component="span" />
+                    <ErrorMessage className={css.error} name="name" component="span" />
                 </div>
                 <div>
-                    <label htmlFor="number" >Number</label>
-                    <Field type="text" name="number"></Field>
+                    <label className={css.label} htmlFor="number" >Number</label>
+                    <Field className={css.field} type="text" name="number"></Field>
 
-                    <ErrorMessage name="number" component="span" />
+                    <ErrorMessage className={css.error} name="number" component="span" />
                 </div>
-                <button type="submit">Edit contact</button>
+                <button className={css.btn} type="submit">Edit contact</button>
             </Form>
         </Formik>
     )

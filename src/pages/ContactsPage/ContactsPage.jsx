@@ -6,6 +6,7 @@ import { selectError, selectIsLoading } from '../../redux/contacts/selectors.js'
 import ContactList from '../../components/ContactList/ContactList.jsx';
 import ContactForm from '../../components/ContactForm/ContactForm.jsx';
 import SearchBox from '../../components/SearchBox/SearchBox.jsx';
+import css from './ContactsPage.module.css'
 
 export default function ContactsPage() {
     const dispatch = useDispatch();
@@ -18,13 +19,17 @@ export default function ContactsPage() {
     }, [dispatch]);
 
     return (
-        <div className='title'>
-            {isLoading && <p>Loading tasks...</p>}
+        <div className={css.container}>
+            {isLoading && <p>Loading contacts...</p>}
             {error && <p>{error}</p>}
-            <h1>Phonebook</h1>
-            <ContactForm />
-            <SearchBox />
-            <ContactList />
+            <h1 className={css.title}>Phonebook</h1>
+            <div className={css.wrapper}>
+                <div className={css.forms}>
+                    <SearchBox />
+                    <ContactForm />
+                </div>
+                <ContactList />
+            </div>
         </div>
     )
 }

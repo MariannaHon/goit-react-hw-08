@@ -2,14 +2,14 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-// import css from './LoginForm.module.css';
+import css from './LoginForm.module.css';
 
 export default function LoginForm() {
     const dispatch = useDispatch();
 
     const Validator = Yup.object().shape({
-        email: Yup.string().email("Invalid email address").required("Required"),
-        password: Yup.string().required("Required"),
+        email: Yup.string().email("Invalid email address!").required("Required!"),
+        password: Yup.string().required("Required!"),
     })
 
     const initialValues = {
@@ -28,18 +28,18 @@ export default function LoginForm() {
             initialValues={initialValues}
             validationSchema={Validator}
             onSubmit={handleSubmit}>
-            <Form>
-                <label>
+            <Form className={css.form}>
+                <label className={css.label}>
                     Email
-                    <Field type="text" name="email" />
-                    <ErrorMessage name="email" component="div" />
+                    <Field className={css.input} type="text" name="email" autocomplete />
+                    <ErrorMessage className={css.error} name="email" component="div" />
                 </label>
-                <label>
+                <label className={css.label}>
                     Password
-                    <Field type="text" name="password" />
-                    <ErrorMessage name="password" component="div" />
+                    <Field className={css.input} type="text" name="password" autocomplete />
+                    <ErrorMessage className={css.error} name="password" component="div" />
                 </label>
-                <button type="submit">Log In</button>
+                <button className={css.btn} type="submit">Log In</button>
             </Form>
         </Formik>
     );

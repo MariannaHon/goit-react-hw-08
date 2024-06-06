@@ -1,7 +1,8 @@
+import css from './HomePage.module.css'
 
 export default function HomePage() {
     return (
-        <div>
+        <div className={css.container}>
             <h1>
                 Welcome to the Contacts App
             </h1>
