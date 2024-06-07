@@ -20,8 +20,9 @@ export const register = createAsyncThunk('auth/register',
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message) &&
-                toast.error('Something went wrong :( Try again later.');
+            toast.error('Something went wrong :( Try again later.');
+            return thunkAPI.rejectWithValue(error.response.data.message);
+
         }
     }
 );
@@ -35,8 +36,8 @@ export const logIn = createAsyncThunk(
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.message) &&
-                toast.error('Something went wrong :( Try again later.');
+            toast.error('Something went wrong :( Try again later.');
+            return thunkAPI.rejectWithValue(error.response.data.message);
         }
     }
 );
@@ -63,8 +64,8 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
         const response = await axios.get('/users/current');
         return response.data;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.message) &&
-            toast.error('Something went wrong :( Try to reload your page.');
+        toast.error('Something went wrong :( Try to reload your page.');
+        return thunkAPI.rejectWithValue(error.message);
     }
 }
 );

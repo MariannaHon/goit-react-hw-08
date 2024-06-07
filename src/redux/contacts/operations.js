@@ -35,7 +35,8 @@ export const deleteContact = createAsyncThunk(
             toast.success('Your contact was successfully deleted!')
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue(e.message) && toast.error('You failed to delete your contact :(');
+            toast.error('You failed to delete your contact :(');
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
 );
