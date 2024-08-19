@@ -16,7 +16,7 @@ const clearAuthHeader = () => {
 export const register = createAsyncThunk('auth/register',
     async ({ name, email, password }, thunkAPI) => {
         try {
-            const response = await axios.post('/users/signup', { name, email, password });
+            const response = await axios.post('auth/register', { name, email, password });
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
@@ -32,7 +32,7 @@ export const logIn = createAsyncThunk(
     'auth/login',
     async ({ email, password }, thunkAPI) => {
         try {
-            const response = await axios.post('/users/login', { email, password });
+            const response = await axios.post('auth/login', { email, password });
             setAuthHeader(response.data.token);
             return response.data;
         } catch (error) {
@@ -44,7 +44,7 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     try {
-        await axios.post('/users/logout');
+        await axios.post('auth/logout');
         clearAuthHeader();
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
@@ -61,7 +61,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
 
     try {
         setAuthHeader(persistedToken);
-        const response = await axios.get('/users/current');
+        const response = await axios.get('auth/refresh');
         return response.data;
     } catch (error) {
         toast.error('Something went wrong :( Try to reload your page.');
