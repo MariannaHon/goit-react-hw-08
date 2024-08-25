@@ -7,7 +7,7 @@ axios.defaults.baseURL = "https://phonebook-db-d0ot.onrender.com/";
 export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thunkAPI) => {
     try {
         const response = await axios.get("/contacts");
-        return response.data;
+        return response.data.data;
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message) && toast.error('Something went wrong :( Try to reload your page.');
     }
@@ -19,8 +19,10 @@ export const addContact = createAsyncThunk(
     async ({ name, number }, thunkAPI) => {
         try {
             const response = await axios.post("/contacts", { name, number });
+            thunkAPI.dispatch(fetchContacts());
             toast.success('A new contact was successfully added!')
             return response.data;
+
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message) && toast.error('You failed to add new contact :(');
         }
@@ -32,8 +34,8 @@ export const deleteContact = createAsyncThunk(
     async (contactId, thunkAPI) => {
         try {
             const response = await axios.delete(`/contacts/${contactId}`);
-            toast.success('Your contact was successfully deleted!')
-            return response.data;
+            thunkAPI.dispatch(fetchContacts());
+            return response.data && toast.success('Your contact was successfully deleted!');
         } catch (e) {
             toast.error('You failed to delete your contact :(');
             return thunkAPI.rejectWithValue(e.message);
@@ -43,10 +45,11 @@ export const deleteContact = createAsyncThunk(
 
 export const patchContact = createAsyncThunk(
     "contacts/patchContact",
-    async ({ id, name, number }, thunkAPI) => {
+    async ({ _id, name, number }, thunkAPI) => {
         try {
-            const response = await axios.patch(`/contacts/${id}`, { name, number });
-            return response.data;
+            const response = await axios.patch(`/contacts/${_id}`, { name, number });
+            thunkAPI.dispatch(fetchContacts());
+            return response.data && toast.success('A contact was successfully changed!');
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }

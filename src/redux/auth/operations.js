@@ -4,8 +4,8 @@ import { toast } from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://phonebook-db-d0ot.onrender.com/';
 
-const setAuthHeader = (token) => {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+const setAuthHeader = (accessToken) => {
+    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 };
 
 const clearAuthHeader = () => {
@@ -17,7 +17,7 @@ export const register = createAsyncThunk('auth/register',
     async ({ name, email, password }, thunkAPI) => {
         try {
             const response = await axios.post('auth/register', { name, email, password });
-            setAuthHeader(response.data.token);
+            setAuthHeader(response.data.data.accessToken);
             return response.data;
         } catch (error) {
             toast.error('Something went wrong :( Try again later.');
@@ -34,7 +34,7 @@ export const logIn = createAsyncThunk(
         try {
             const response = await axios.post('auth/login', { email, password });
             console.log(response.data);
-            setAuthHeader(response.data.token);
+            setAuthHeader(response.data.data.accessToken);
             return response.data;
         } catch (error) {
             console.log(error.response?.data);
@@ -55,7 +55,9 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 
 export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = state.auth.accessToken;
+
+    console.log(persistedToken);
 
     if (persistedToken === null) {
         return thunkAPI.rejectWithValue('Unable to fetch user');
@@ -64,6 +66,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     try {
         setAuthHeader(persistedToken);
         const response = await axios.get('auth/refresh');
+        console.log(response.data);
         return response.data;
     } catch (error) {
         toast.error('Something went wrong :( Try to reload your page.');

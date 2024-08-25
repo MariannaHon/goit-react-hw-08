@@ -49,7 +49,7 @@ const contactsSlice = createSlice({
             .addCase(patchContact.pending, handlePending)
             .addCase(patchContact.fulfilled, (state, action) => {
                 const index = state.items.findIndex(
-                    contact => contact.id === action.payload.id
+                    contact => contact._id === action.payload._id
                 );
                 if (index !== -1) {
                     state.items[index] = action.payload;

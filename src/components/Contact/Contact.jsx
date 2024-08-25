@@ -11,7 +11,7 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const Contact = ({ contact: { id, name, number } }) => {
+const Contact = ({ contact: { _id, name, number } }) => {
 
     const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const Contact = ({ contact: { id, name, number } }) => {
 
     const handleConfirmDelete = () => {
         if (contactToDelete) {
-            dispatch(deleteContact(contactToDelete.id));
+            dispatch(deleteContact(contactToDelete._id));
             closeModal();
         }
     }
@@ -56,7 +56,7 @@ const Contact = ({ contact: { id, name, number } }) => {
                     color: 'black',
                 }} />
             </IconButton>
-            <IconButton edge="end" aria-label="delete" onClick={() => openModal({ id, name, number })}>
+            <IconButton edge="end" aria-label="delete" onClick={() => openModal({ _id, name, number })}>
                 <DeleteIcon sx={{
                     width: 35,
                     color: 'black',
@@ -73,7 +73,7 @@ const Contact = ({ contact: { id, name, number } }) => {
                 <ToEdit
                     isOpen={modalEditOpen}
                     onRequestClose={closeModalEdit}
-                    initialValues={{ id, name, number }} />
+                    initialValues={{ _id, name, number }} />
             )}
         </div>
     )

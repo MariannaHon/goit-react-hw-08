@@ -18,7 +18,7 @@ import { filtersReducer } from "./filters/slice";
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['token'],
+    whitelist: ['accessToken'],
 };
 
 
@@ -35,5 +35,7 @@ export const store = configureStore({
             },
         }),
 });
+
+
 
 export const persistor = persistStore(store);
